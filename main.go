@@ -1,11 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"context"
 	"fmt"
 	"log"
-	"github.com/joho/godotenv"
 	"os"
+
+	"github.com/joho/godotenv"
 	"google.golang.org/genai"
 )
 
@@ -28,14 +30,27 @@ func main() {
 		log.Fatal(err)
 	}
 
-	result, err := client.Models.GenerateContent(
-		ctx,
-		"gemini-2.0-flash",
-		genai.Text("Explain how AI works"),
-		nil,
-	)
-	if err != nil {
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("gemini>\nyou> ")
+	for scanner.Scan() {
+		input := scanner.Text()
+		if input == "exit" || input == "quit" {
+			break
+		}
+		result, err := client.Models.GenerateContent(
+			ctx,
+			"gemini-2.0-flash",
+			genai.Text(input),
+			nil,
+		)
+		if err != nil {
+			fmt.Println("Error:", err)
+		} else {
+			fmt.Println(result.Text())
+		}
+		fmt.Print("you> ")
+	}
+	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(result.Text())
 }
