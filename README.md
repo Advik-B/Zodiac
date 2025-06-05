@@ -13,7 +13,6 @@
 - 📁 File system access (read/write/delete)
 - ⚙️ System command execution
 - 📝 Script generation and execution (e.g. Python, Bash, PowerShell)
-- 🛡️ Sandbox-aware execution (WIP)
 - 🚀 Cross-platform (Windows, macOS, Linux)
 - 🧩 Plugin-friendly architecture (planned)
 
