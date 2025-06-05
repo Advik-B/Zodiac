@@ -17,10 +17,13 @@ func main() {
 
 	
 	ctx := context.Background()
-	client, err := genai.NewClient(ctx, &genai.ClientConfig{
-		APIKey:  os.Getenv("GEMINI_API_KEY"),
-		Backend: genai.BackendGeminiAPI,
-	})
+	client, err := genai.NewClient(
+		ctx,
+		&genai.ClientConfig{
+			APIKey:  os.Getenv("GEMINI_API_KEY"),
+			Backend: genai.BackendGeminiAPI,
+		},
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,7 +31,7 @@ func main() {
 	result, err := client.Models.GenerateContent(
 		ctx,
 		"gemini-2.0-flash",
-		genai.Text("Explain how AI works in a few words"),
+		genai.Text("Explain how AI works"),
 		nil,
 	)
 	if err != nil {
